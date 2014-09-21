@@ -3,6 +3,7 @@
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
 
+
 //Matrix
 Adafruit_8x8matrix matriz = Adafruit_8x8matrix();
 //Variable para almacenar la lectura de humedad
@@ -11,6 +12,10 @@ int humedad = 0;
 void setup() {
   Serial.begin(57600);
   matriz.begin(0x70); //Inicializacion de la matriz
+  //Inicializamos los LEDs
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
 }
 //Dibujamos las caritas
 static const uint8_t PROGMEM
@@ -54,6 +59,9 @@ void loop() {
     matriz.clear();
     matriz.drawBitmap(0, 0, planta_triste, 8, 8, LED_ON);
     matriz.writeDisplay();
+    digitalWrite(10, HIGH);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
     delay(500); 
   }
   //Si la lectura esta entre 300 y 700 la humedad
@@ -62,6 +70,9 @@ void loop() {
     matriz.clear();
     matriz.drawBitmap(0, 0, planta_contenta, 8, 8, LED_ON);
     matriz.writeDisplay();
+    digitalWrite(10, LOW);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, LOW);
     delay(500);
   }
   //Lecturas superiores a 700 significan que la tierra esta
@@ -70,6 +81,9 @@ void loop() {
     matriz.clear();
     matriz.drawBitmap(0, 0, planta_ahogada, 8, 8, LED_ON);
     matriz.writeDisplay();
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, HIGH);
     delay(500); 
   }
   delay(100);
