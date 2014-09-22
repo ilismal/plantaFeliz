@@ -48,8 +48,7 @@ static const uint8_t PROGMEM
      B11101111,
      B11111111,
      B11111111,
-     B11111111
-   };
+     B11111111 };
 
 void loop() {
   humedad = analogRead(0);
